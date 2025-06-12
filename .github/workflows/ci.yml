@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9, "3.10", "3.11"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Format check with black
+        run: |
+          black --check --diff .
+
+      - name: Import sorting check with isort
+        run: |
+          isort --check-only --diff .
+
+      - name: Lint with flake8
+        run: |
+          flake8 .
+
+      # Skip mypy due to path conflicts in ComfyUI node structure
+      # - name: Type check with mypy
+      #   run: |
+      #     mypy .
+
+      - name: Run tests
+        run: |
+          python run_tests.py
+
+      - name: Test individual nodes
+        run: |
+          python -c "
+          import sys
+          sys.path.append('nodes')
+          
+          # Mock ComfyUI
+          from tests.mocks.mock_comfy import MockSamplers, MAX_RESOLUTION
+          comfy_module = type('MockComfy', (), {})()
+          comfy_module.samplers = MockSamplers
+          sys.modules['comfy'] = comfy_module
+          sys.modules['comfy.samplers'] = MockSamplers
+          nodes_module = type('MockNodes', (), {})()
+          nodes_module.MAX_RESOLUTION = MAX_RESOLUTION
+          sys.modules['nodes'] = nodes_module
+          
+          # Test imports
+          from sampler_selector import SamplerSelector
+          from scheduler_selector import SchedulerSelector
+          from seed_generator import SeedGenerator
+          from width_node import WidthNode
+          from height_node import HeightNode
+          from width_height_node import WidthHeightNode
+          print('All nodes import successfully')
+          "
