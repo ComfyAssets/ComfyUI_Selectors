@@ -209,8 +209,4 @@ requirements-dev.txt    # Development dependencies
 
 ## License
 
-[Add your license here]
-
-## Support
-
-[Add support information here]
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
