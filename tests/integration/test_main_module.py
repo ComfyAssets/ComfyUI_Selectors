@@ -7,8 +7,8 @@ import pytest  # noqa: F401
 
 def test_main_module_import():
     """Test that the main module can be imported successfully."""
-    import sys
     import os
+    import sys
 
     # Import the main module properly
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
@@ -29,9 +29,9 @@ def test_main_module_import():
 
 def test_node_mappings_consistency():
     """Test that node mappings are consistent."""
-    import sys
-    import os
     import importlib.util
+    import os
+    import sys
 
     # Import the main module properly
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
@@ -64,9 +64,9 @@ def test_node_mappings_consistency():
 
 def test_registered_nodes_are_classes():
     """Test that registered nodes are actual classes."""
-    import sys
-    import os
     import importlib.util
+    import os
+    import sys
 
     # Import the main module properly
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
@@ -89,9 +89,9 @@ def test_registered_nodes_are_classes():
 
 def test_display_names_are_strings():
     """Test that display names are strings."""
-    import sys
-    import os
     import importlib.util
+    import os
+    import sys
 
     # Import the main module properly
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))

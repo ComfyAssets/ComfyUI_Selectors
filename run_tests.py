@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.join(project_root, "nodes"))
 
 # Set up mock ComfyUI modules
 # Mock ComfyUI modules must be imported after path setup
-from tests.mocks.mock_comfy import MockSamplers, MAX_RESOLUTION  # noqa: E402
+from tests.mocks.mock_comfy import MAX_RESOLUTION, MockSamplers  # noqa: E402
 
 # Mock comfy module
 comfy_module = type("MockComfy", (), {})()
@@ -33,12 +33,12 @@ def test_all_nodes():
     print("Testing ComfyUI Selector nodes...\n")
 
     # Import all nodes
+    from height_node import HeightNode
     from sampler_selector import SamplerSelector
     from scheduler_selector import SchedulerSelector
     from seed_generator import SeedGenerator
-    from width_node import WidthNode
-    from height_node import HeightNode
     from width_height_node import WidthHeightNode
+    from width_node import WidthNode
 
     nodes = {
         "SamplerSelector": SamplerSelector,

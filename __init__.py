@@ -1,11 +1,11 @@
-WEB_DIRECTORY = "./web"
-
 from .nodes.height_node import HeightNode
 from .nodes.sampler_selector import SamplerSelector
 from .nodes.scheduler_selector import SchedulerSelector
 from .nodes.seed_generator import SeedGenerator
 from .nodes.width_height_node import WidthHeightNode
 from .nodes.width_node import WidthNode
+
+WEB_DIRECTORY = "./web"
 
 NODE_CLASS_MAPPINGS = {
     "SamplerSelector": SamplerSelector,

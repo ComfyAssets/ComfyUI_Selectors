@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.join(project_root, "nodes"))
 
 # Set up mock ComfyUI modules immediately
 # Import after path setup for proper module resolution
-from tests.mocks.mock_comfy import MockSamplers, MAX_RESOLUTION  # noqa: E402
+from tests.mocks.mock_comfy import MAX_RESOLUTION, MockSamplers  # noqa: E402
 
 # Mock comfy module
 comfy_module = type("MockComfy", (), {})()
@@ -31,7 +31,7 @@ sys.modules["nodes"] = nodes_module
 @pytest.fixture(scope="session", autouse=True)
 def setup_mock_comfy():
     """Set up mock ComfyUI modules for testing."""
-    from tests.mocks.mock_comfy import MockSamplers, MAX_RESOLUTION
+    from tests.mocks.mock_comfy import MAX_RESOLUTION, MockSamplers
 
     # Mock comfy module
     comfy_module = type("MockComfy", (), {})()
