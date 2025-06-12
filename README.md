@@ -1,5 +1,7 @@
 # ComfyUI Selectors
 
+[![CI](https://github.com/ComfyAssets/ComfyUI_Selectors/actions/workflows/ci.yml/badge.svg)](https://github.com/ComfyAssets/ComfyUI_Selectors/actions/workflows/ci.yml)
+
 **Version 1.0**
 
 A modern ComfyUI custom node package that provides essential UI controls for image generation workflows. These nodes allow you to centralize commonly shared parameters (scheduler, sampler, dimensions, seeds) and link them to multiple nodes in your workflow, eliminating redundancy while maintaining JSON metadata compatibility.
