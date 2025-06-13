@@ -64,7 +64,7 @@ class TestSamplerSelector:
 
     def test_category(self, sampler_selector):
         """Test node category."""
-        assert sampler_selector.CATEGORY == "Selectors/Sampling"
+        assert sampler_selector.CATEGORY == "comfyassets/Sampling"
 
 
 class TestSchedulerSelector:
@@ -82,31 +82,70 @@ class TestSchedulerSelector:
 
     def test_category(self, scheduler_selector):
         """Test node category."""
-        assert scheduler_selector.CATEGORY == "Selectors/Sampling"
+        assert scheduler_selector.CATEGORY == "comfyassets/Sampling"
 
 
-class TestSeedGenerator:
-    """Test SeedGenerator node functionality."""
+class TestSeedHistory:
+    """Test SeedHistory node functionality."""
 
-    def test_generate_seed_fixed(self, seed_generator):
-        """Test fixed seed generation."""
-        result = seed_generator.generate_seed(42, "fixed")
+    def test_output_seed_basic(self, seed_history):
+        """Test basic seed output."""
+        result = seed_history.output_seed(42)
         assert result == (42,)
 
-    def test_generate_seed_increment(self, seed_generator):
-        """Test increment seed generation."""
-        result = seed_generator.generate_seed(42, "increment")
-        assert result == (43,)
+    def test_output_seed_different_values(self, seed_history):
+        """Test seed output with different values."""
+        result = seed_history.output_seed(123)
+        assert result == (123,)
 
-    def test_generate_seed_randomize(self, seed_generator):
-        """Test random seed generation."""
-        result = seed_generator.generate_seed(42, "randomize")
+    def test_output_seed_passthrough(self, seed_history):
+        """Test that seed is passed through unchanged."""
+        result = seed_history.output_seed(999)
         assert isinstance(result[0], int)
-        assert result[0] != 42  # Should be different from input
+        assert result[0] == 999
 
-    def test_category(self, seed_generator):
+    def test_output_seed_large_values(self, seed_history):
+        """Test seed output with large values."""
+        large_seed = 0xFFFFFFFFFFFFFFFF
+        result = seed_history.output_seed(large_seed)
+        assert result == (large_seed,)
+
+    def test_output_seed_zero(self, seed_history):
+        """Test seed output with zero value."""
+        result = seed_history.output_seed(0)
+        assert result == (0,)
+
+    def test_input_types_structure(self, seed_history):
+        """Test that input types are correctly configured."""
+        input_types = seed_history.INPUT_TYPES()
+        assert "required" in input_types
+        assert "seed" in input_types["required"]
+
+        seed_config = input_types["required"]["seed"]
+        assert seed_config[0] == "INT"
+        assert "default" in seed_config[1]
+        assert "min" in seed_config[1]
+        assert "max" in seed_config[1]
+        assert "tooltip" in seed_config[1]
+
+        # Test default value
+        assert seed_config[1]["default"] == 12345
+        assert seed_config[1]["min"] == 0
+        assert seed_config[1]["max"] == 0xFFFFFFFFFFFFFFFF
+
+    def test_return_types(self, seed_history):
+        """Test return types configuration."""
+        assert seed_history.RETURN_TYPES == ("INT",)
+        assert seed_history.RETURN_NAMES == ("seed",)
+
+    def test_function_name(self, seed_history):
+        """Test function name matches method."""
+        assert seed_history.FUNCTION == "output_seed"
+        assert hasattr(seed_history, "output_seed")
+
+    def test_category(self, seed_history):
         """Test node category."""
-        assert seed_generator.CATEGORY == "Selectors/Generation"
+        assert seed_history.CATEGORY == "comfyassets/Generation"
 
 
 class TestWidthNode:
@@ -124,7 +163,7 @@ class TestWidthNode:
 
     def test_category(self, width_node):
         """Test node category."""
-        assert width_node.CATEGORY == "Selectors/Dimensions"
+        assert width_node.CATEGORY == "comfyassets/Dimensions"
 
 
 class TestHeightNode:
@@ -142,7 +181,7 @@ class TestHeightNode:
 
     def test_category(self, height_node):
         """Test node category."""
-        assert height_node.CATEGORY == "Selectors/Dimensions"
+        assert height_node.CATEGORY == "comfyassets/Dimensions"
 
 
 class TestWidthHeightNode:
@@ -165,4 +204,4 @@ class TestWidthHeightNode:
 
     def test_category(self, width_height_node):
         """Test node category."""
-        assert width_height_node.CATEGORY == "Selectors/Dimensions"
+        assert width_height_node.CATEGORY == "comfyassets/Dimensions"

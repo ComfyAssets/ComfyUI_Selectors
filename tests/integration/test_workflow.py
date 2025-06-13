@@ -9,7 +9,7 @@ class TestWorkflowIntegration:
     """Test nodes working together in workflow scenarios."""
 
     def test_sampling_workflow(
-        self, sampler_selector, scheduler_selector, seed_generator
+        self, sampler_selector, scheduler_selector, seed_history
     ):
         """Test a typical sampling workflow with selector nodes."""
         # Select sampler
@@ -21,7 +21,7 @@ class TestWorkflowIntegration:
         assert scheduler_result == ("karras",)
 
         # Generate seed
-        seed_result = seed_generator.generate_seed(42, "fixed")
+        seed_result = seed_history.output_seed(42)
         assert seed_result == (42,)
 
         # Verify all outputs are tuples (ComfyUI format)
@@ -58,9 +58,9 @@ class TestWorkflowIntegration:
         # Test that they all have unique categories or share appropriately
         categories = {instance.CATEGORY for instance in instances.values()}
         expected_categories = {
-            "Selectors/Sampling",
-            "Selectors/Generation",
-            "Selectors/Dimensions",
+            "comfyassets/Sampling",
+            "comfyassets/Generation",
+            "comfyassets/Dimensions",
         }
         assert categories == expected_categories
 
@@ -75,7 +75,7 @@ class TestWorkflowIntegration:
         test_cases = {
             "SamplerSelector": ("euler",),
             "SchedulerSelector": ("karras",),
-            "SeedGenerator": (42, "fixed"),
+            "SeedHistory": (42,),
             "WidthNode": (512, "custom"),
             "HeightNode": (512, "custom"),
             "WidthHeightNode": (512, 768, "custom", False),

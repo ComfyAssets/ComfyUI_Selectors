@@ -64,11 +64,11 @@ def scheduler_selector():
 
 
 @pytest.fixture
-def seed_generator():
-    """Fixture for SeedGenerator node."""
-    from seed_generator import SeedGenerator
+def seed_history():
+    """Fixture for SeedHistory node."""
+    from random_value_tracker import SeedHistory
 
-    return SeedGenerator()
+    return SeedHistory()
 
 
 @pytest.fixture
@@ -99,16 +99,16 @@ def width_height_node():
 def all_nodes():
     """Fixture that returns all node classes for testing."""
     from height_node import HeightNode
+    from random_value_tracker import SeedHistory
     from sampler_selector import SamplerSelector
     from scheduler_selector import SchedulerSelector
-    from seed_generator import SeedGenerator
     from width_height_node import WidthHeightNode
     from width_node import WidthNode
 
     return {
         "SamplerSelector": SamplerSelector,
         "SchedulerSelector": SchedulerSelector,
-        "SeedGenerator": SeedGenerator,
+        "SeedHistory": SeedHistory,
         "WidthNode": WidthNode,
         "HeightNode": HeightNode,
         "WidthHeightNode": WidthHeightNode,
