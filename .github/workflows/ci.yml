@@ -75,7 +75,7 @@ jobs:
           # Test imports
           from sampler_selector import SamplerSelector
           from scheduler_selector import SchedulerSelector
-          from seed_generator import SeedGenerator
+          from random_value_tracker import SeedHistory
           from width_node import WidthNode
           from height_node import HeightNode
           from width_height_node import WidthHeightNode
