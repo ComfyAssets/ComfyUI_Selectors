@@ -1,0 +1,3 @@
+# Production dependencies
+# ComfyUI Selectors nodes use ComfyUI's built-in dependencies
+# No additional production dependencies required
