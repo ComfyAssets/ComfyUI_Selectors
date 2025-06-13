@@ -34,16 +34,16 @@ def test_all_nodes():
 
     # Import all nodes
     from height_node import HeightNode
+    from random_value_tracker import SeedHistory
     from sampler_selector import SamplerSelector
     from scheduler_selector import SchedulerSelector
-    from seed_generator import SeedGenerator
     from width_height_node import WidthHeightNode
     from width_node import WidthNode
 
     nodes = {
         "SamplerSelector": SamplerSelector,
         "SchedulerSelector": SchedulerSelector,
-        "SeedGenerator": SeedGenerator,
+        "SeedHistory": SeedHistory,
         "WidthNode": WidthNode,
         "HeightNode": HeightNode,
         "WidthHeightNode": WidthHeightNode,
@@ -90,13 +90,13 @@ def test_all_nodes():
     assert result == ("karras",), f"Expected ('karras',), got {result}"
     print("  ✅ SchedulerSelector works")
 
-    # Test SeedGenerator
-    seed_gen = SeedGenerator()
-    result = seed_gen.generate_seed(42, "fixed")
+    # Test SeedHistory
+    seed_gen = SeedHistory()
+    result = seed_gen.output_seed(42)
     assert result == (42,), f"Expected (42,), got {result}"
-    result = seed_gen.generate_seed(42, "increment")
-    assert result == (43,), f"Expected (43,), got {result}"
-    print("  ✅ SeedGenerator works")
+    result = seed_gen.output_seed(123)
+    assert result == (123,), f"Expected (123,), got {result}"
+    print("  ✅ SeedHistory works")
 
     # Test WidthNode
     width_node = WidthNode()
@@ -152,7 +152,7 @@ def test_main_module():
     expected_nodes = {
         "SamplerSelector",
         "SchedulerSelector",
-        "SeedGenerator",
+        "SeedHistory",
         "WidthNode",
         "HeightNode",
         "WidthHeightNode",
