@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.8, 3.9, "3.10", "3.11"]
+        python-version: [3.8, 3.9, "3.10", "3.11", "3.12", "3.13"]
 
     steps:
       - uses: actions/checkout@v4
@@ -52,9 +52,17 @@ jobs:
       #   run: |
       #     mypy .
 
-      - name: Run tests
+      - name: Run custom test runner
         run: |
           python run_tests.py
+
+      - name: Run pytest unit tests
+        run: |
+          pytest tests/unit/ -v
+
+      - name: Run pytest integration tests
+        run: |
+          pytest tests/integration/ -v
 
       - name: Test individual nodes
         run: |
