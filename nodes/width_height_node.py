@@ -9,7 +9,7 @@ class WidthHeightNode:
                 "width": (
                     "INT",
                     {
-                        "default": 512,
+                        "default": 1024,
                         "min": 64,
                         "max": MAX_RESOLUTION,
                         "step": 8,
@@ -19,7 +19,7 @@ class WidthHeightNode:
                 "height": (
                     "INT",
                     {
-                        "default": 512,
+                        "default": 1024,
                         "min": 64,
                         "max": MAX_RESOLUTION,
                         "step": 8,
@@ -29,27 +29,19 @@ class WidthHeightNode:
                 "preset": (
                     [
                         "custom",
-                        "512x512",
-                        "768x512",
-                        "1024x768",
+                        "1024x1024",
                         "1152x896",
+                        "896x1152",
                         "1216x832",
+                        "832x1216",
                         "1344x768",
-                        "1408x704",
-                        "1472x704",
+                        "768x1344",
                         "1536x640",
                         "640x1536",
-                        "704x1472",
-                        "704x1408",
-                        "768x1344",
-                        "832x1216",
-                        "896x1152",
-                        "768x1024",
-                        "512x768",
                     ],
                     {
                         "default": "custom",
-                        "tooltip": "Common dimension presets for quick selection",
+                        "tooltip": "SDXL/FLUX resolution presets",
                     },
                 ),
                 "swap_dimensions": (
@@ -66,12 +58,31 @@ class WidthHeightNode:
 
     def get_dimensions(self, width, height, preset, swap_dimensions):
         """Get width and height values with preset and swap support."""
+        # Mapping for swapped presets
+        swap_mapping = {
+            "1024x1024": "1024x1024",  # Square stays the same
+            "1152x896": "896x1152",
+            "896x1152": "1152x896",
+            "1216x832": "832x1216",
+            "832x1216": "1216x832",
+            "1344x768": "768x1344",
+            "768x1344": "1344x768",
+            "1536x640": "640x1536",
+            "640x1536": "1536x640",
+        }
+
         if preset != "custom":
-            preset_parts = preset.split("x")
+            if swap_dimensions and preset in swap_mapping:
+                # Use the swapped preset to get proper dimensions
+                swapped_preset = swap_mapping[preset]
+                preset_parts = swapped_preset.split("x")
+            else:
+                preset_parts = preset.split("x")
+
             width = int(preset_parts[0])
             height = int(preset_parts[1])
-
-        if swap_dimensions:
+        elif swap_dimensions:
+            # Only swap custom dimensions
             width, height = height, width
 
         return (width, height)

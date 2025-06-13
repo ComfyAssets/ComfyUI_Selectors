@@ -19,19 +19,19 @@ class WidthNode:
                 "preset": (
                     [
                         "custom",
-                        "512",
+                        "640",
                         "768",
+                        "832",
+                        "896",
                         "1024",
                         "1152",
                         "1216",
                         "1344",
-                        "1408",
-                        "1472",
                         "1536",
                     ],
                     {
                         "default": "custom",
-                        "tooltip": "Common width presets for quick selection",
+                        "tooltip": "SDXL/FLUX width presets",
                     },
                 ),
             }
