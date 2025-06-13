@@ -9,9 +9,16 @@ A modern ComfyUI custom node package that provides essential UI controls for ima
 ## Features
 
 - **Sampler Selector**: Choose from all current ComfyUI-supported sampling methods
+  - ![Alt Text](imgs/sampler.png)
+
 - **Scheduler Selector**: Select from all current ComfyUI-supported schedulers
+  - ![Alt Text](imgs/sched.png)
+
 - **Seed History**: Generate, increment, or randomize seeds with advanced controls and history tracking
+  - ![Alt Text](imgs/history.png)
+
 - **Width & Height Nodes**: Individual dimension controls with preset support
+- ![Alt Text](imgs/width-height.png)
 - **Combined Width/Height Node**: Dual dimension control with swap functionality and presets
 - **Modern ComfyUI Standards**: Follows 2024 ComfyUI development best practices
 - **JSON Compatible**: Maintains workflow JSON compatibility for sharing and version control
