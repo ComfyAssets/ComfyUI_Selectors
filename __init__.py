@@ -5,6 +5,9 @@ from .nodes.scheduler_selector import SchedulerSelector
 from .nodes.width_height_node import WidthHeightNode
 from .nodes.width_node import WidthNode
 
+# Print startup message in blue
+print("\033[94m [ComfyAssets Selectors] Loaded..\033[0m")
+
 WEB_DIRECTORY = "./web"
 
 NODE_CLASS_MAPPINGS = {
