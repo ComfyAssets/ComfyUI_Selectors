@@ -10,7 +10,7 @@ A modern ComfyUI custom node package that provides essential UI controls for ima
 
 - **Sampler Selector**: Choose from all current ComfyUI-supported sampling methods
 - **Scheduler Selector**: Select from all current ComfyUI-supported schedulers
-- **Seed Generator**: Generate, increment, or randomize seeds with advanced controls
+- **Seed History**: Generate, increment, or randomize seeds with advanced controls and history tracking
 - **Width & Height Nodes**: Individual dimension controls with preset support
 - **Combined Width/Height Node**: Dual dimension control with swap functionality and presets
 - **Modern ComfyUI Standards**: Follows 2024 ComfyUI development best practices
@@ -24,11 +24,11 @@ A modern ComfyUI custom node package that provides essential UI controls for ima
    git clone https://github.com/ComfyAssets/ComfyUI_Selectors.git
    ```
 3. Restart ComfyUI
-4. The nodes will appear in the `Selectors/` category
+4. The nodes will appear in the `comfyassets/` category
 
 ## Available Nodes
 
-### Sampling Nodes (`Selectors/Sampling`)
+### Sampling Nodes (`comfyassets/Sampling`)
 
 #### Sampler Selector
 
@@ -42,21 +42,27 @@ A modern ComfyUI custom node package that provides essential UI controls for ima
 - **Output**: Scheduler name for use in KSampler nodes
 - **Supported Schedulers**: normal, karras, exponential, sgm_uniform, simple, ddim_uniform, beta
 
-### Generation Nodes (`Selectors/Generation`)
+### Generation Nodes (`comfyassets/Generation`)
 
-#### Seed Generator
+#### Seed History
 
-- **Function**: Advanced seed generation with multiple control modes
-- **Controls**:
+- **Function**: Advanced seed management with web-based controls and history tracking
+- **Input**:
   - `seed`: Base seed value (0-18446744073709551615)
-  - `control_after_generate`: How to handle seed after generation
-    - `fixed`: Keep seed unchanged
-    - `increment`: Increase seed by 1
-    - `decrement`: Decrease seed by 1
-    - `randomize`: Generate random seed
+- **Web UI Features**:
+  - **Control Mode**: Dropdown to set behavior after generation
+    - `Fixed`: Keep seed unchanged
+    - `Increment`: Add 1 to seed after each generation
+    - `Decrement`: Subtract 1 from seed after each generation
+    - `Randomize`: Generate new random seed after each generation
+  - **Seed History**: Automatically tracks and displays the last 5 seeds used
+  - **One-Click Reuse**: Click any seed in history to instantly load it
+  - **Generate New**: Quick button to generate and apply a new seed based on control mode
+  - **Clear History**: Reset the seed history cache
+  - **Persistent Storage**: Both seed history and control mode persist across ComfyUI sessions
 - **Output**: Seed value for use in KSampler nodes
 
-### Dimension Nodes (`Selectors/Dimensions`)
+### Dimension Nodes (`comfyassets/Dimensions`)
 
 #### Width Node
 
@@ -91,7 +97,7 @@ A modern ComfyUI custom node package that provides essential UI controls for ima
 
 1. Add a **Sampler Selector** node and choose your preferred sampler
 2. Add a **Scheduler Selector** node and choose your scheduler
-3. Add a **Seed Generator** node and set control mode
+3. Add a **Seed History** node and set control mode
 4. Add a **Width & Height Node** and choose dimensions
 5. Connect outputs to your KSampler and latent image nodes
 
@@ -119,9 +125,9 @@ A modern ComfyUI custom node package that provides essential UI controls for ima
 
 ### Node Categories
 
-- `Selectors/Sampling`: Sampler and scheduler selection
-- `Selectors/Generation`: Seed and generation control
-- `Selectors/Dimensions`: Width, height, and dimension control
+- `comfyassets/Sampling`: Sampler and scheduler selection
+- `comfyassets/Generation`: Seed and generation control
+- `comfyassets/Dimensions`: Width, height, and dimension control
 
 ### Output Types
 
@@ -169,6 +175,9 @@ flake8 .
 
 ```
 nodes/                   # ComfyUI node implementations
+web/                     # Web UI components and extensions
+├── seed_history.js     # Seed History UI
+└── width_height_swap.js # Width/Height node swap functionality
 tests/                   # Test suites with mock ComfyUI
 ├── mocks/              # Mock ComfyUI modules
 ├── unit/               # Unit tests
@@ -199,7 +208,7 @@ requirements-dev.txt    # Development dependencies
 
 - ✅ Sampler Selector with all current ComfyUI samplers
 - ✅ Scheduler Selector with all current ComfyUI schedulers
-- ✅ Seed Generator with advanced control modes (fixed/increment/decrement/randomize)
+- ✅ Seed History with advanced control modes (fixed/increment/decrement/randomize) and history UI
 - ✅ Width Node with preset support
 - ✅ Height Node with preset support
 - ✅ Combined Width & Height Node with swap functionality and dimension presets
