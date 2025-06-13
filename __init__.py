@@ -1,7 +1,7 @@
 from .nodes.height_node import HeightNode
+from .nodes.random_value_tracker import SeedHistory
 from .nodes.sampler_selector import SamplerSelector
 from .nodes.scheduler_selector import SchedulerSelector
-from .nodes.seed_generator import SeedGenerator
 from .nodes.width_height_node import WidthHeightNode
 from .nodes.width_node import WidthNode
 
@@ -10,7 +10,7 @@ WEB_DIRECTORY = "./web"
 NODE_CLASS_MAPPINGS = {
     "SamplerSelector": SamplerSelector,
     "SchedulerSelector": SchedulerSelector,
-    "SeedGenerator": SeedGenerator,
+    "SeedHistory": SeedHistory,
     "WidthNode": WidthNode,
     "HeightNode": HeightNode,
     "WidthHeightNode": WidthHeightNode,
@@ -19,7 +19,7 @@ NODE_CLASS_MAPPINGS = {
 NODE_DISPLAY_NAME_MAPPINGS = {
     "SamplerSelector": "Sampler Selector",
     "SchedulerSelector": "Scheduler Selector",
-    "SeedGenerator": "Seed Generator",
+    "SeedHistory": "Seed History",
     "WidthNode": "Width",
     "HeightNode": "Height",
     "WidthHeightNode": "Width & Height",
