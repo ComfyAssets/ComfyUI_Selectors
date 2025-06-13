@@ -118,10 +118,12 @@ def test_all_nodes():
     wh_node = WidthHeightNode()
     result = wh_node.get_dimensions(512, 768, "custom", False)
     assert result == (512, 768), f"Expected (512, 768), got {result}"
-    result = wh_node.get_dimensions(512, 768, "1024x768", False)
-    assert result == (1024, 768), f"Expected (1024, 768), got {result}"
+    result = wh_node.get_dimensions(512, 768, "1024x1024", False)
+    assert result == (1024, 1024), f"Expected (1024, 1024), got {result}"
     result = wh_node.get_dimensions(512, 768, "custom", True)
     assert result == (768, 512), f"Expected (768, 512), got {result}"
+    result = wh_node.get_dimensions(512, 768, "1152x896", True)
+    assert result == (896, 1152), f"Expected (896, 1152), got {result}"
     print("  ✅ WidthHeightNode works")
 
     print("\n🎉 All tests passed!")
